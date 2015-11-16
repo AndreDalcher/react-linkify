@@ -60,9 +60,11 @@ var Linkify = (function (_React$Component) {
       }
 
       var str = string.match(regex)[0];
+      var str1 = string.match(regex)[1];
 
       return {
         str: str,
+        str1: str1,
         type: type,
         idx: idx,
         len: str.length
@@ -77,7 +79,7 @@ var Linkify = (function (_React$Component) {
         if (match.str.substring(0, 4).toLowerCase() === 'http') {
           return match.str;
         } else {
-          return 'http://' + match.str;
+          return 'http://' + match.str1;
         }
       }
 
@@ -107,6 +109,9 @@ var Linkify = (function (_React$Component) {
         var val = this.props.properties[key];
         if (val === Linkify.MATCH) {
           val = this.formatLink(match);
+        }
+        if (key === 'href') {
+          val = '' + val + match.str1;
         }
 
         props[key] = val;
